@@ -50,10 +50,86 @@ Therefore \(v_2/v_1 = \exp(\omega_1\Delta) = v_3/v_2\). It is convenient to intr
 new variable \(q\) as follows \(q = \exp (\Delta)\).
 
 Then, it is easy to demonstrate that a geometric progression satisfies a recurrency relation.
-Let such a relation has form $v_{i+2} = a v_{i+1} + b v_{i}$. We can substitute values using
+%
+Let such relation has form 
+\begin{equation}
+ v_{i+2} = a v_{i+1} + b v_{i}
+ \label{recurrency_eq}
+\end{equation} 
+%
+We can substitute values using
 formula for general term of geometric progression \(v_i = q^i\) and obtain polynomial equation
-\(q^2 = a q + b\). Obviously this approach can be applied to the recurrency relations of
+\begin{equation}
+q^2 = a q + b.
+\label{square_eq}
+\end{equation}
+%
+Obviously this approach can be applied to the recurrency relations of
 higher order.
+
+\newpage
+Beauty of this approach is that both sides of the recurrency relation can be multiplied by some
+constant. 
+%
+It means that amplitude part of signal has no influence on these equations.
+%
+Therefore we can use them to determine a frequency of our signal.
+%
+To do it, we need to determine coefficients \(a\) and \(b\) in the recurrency relation.
+%
+It is easy.
+%
+Really, if we have \(n\) experimental points \(p_1, p_2, \ldots, p_n\) it is possible to write  
+down \(n-3\) recurrency relations (\ref{recurrency_eq}).
+%
+Now we have a lot of equations and only two variables. 
+%
+It is well-known problem. 
+%
+There is no ``right'' solution for this problem.
+%
+But, at least, we can minimize discrepancy between left and right
+parts of the equations.
+%
+Since squared difference is a good measure of the discrepancy, usually
+sum of these is minimized and this procedure called the Least Squares Method.
+%
+Least Squares Method consists in organazing of experimental values in matrices \(X\) and vector \(Y\)
+and calculation of the expression \((X^T X)^{-1}X^T Y\).
+%
+It gives us values of \(a\) and \(b\).
+
+Common ratio \(q\) of the geometric progression can be obtained by solving quadratic
+equation (\ref{square_eq}).
+%
+In most practical cases this equation gives two conjugated complex numbers \(q_1\) and \(q_2\) as its roots.
+%
+Each root corresponds to exponentialy decaying sine function of time.
+%
+General term for such kind of signal is \(p(t) = A \exp (-\gamma t) \sin (\omega + \phi)\).
+%
+Real part of \(q\) is related to \(\gamma\) and \(\omega\).
+%6
+To full reconstruction of signal it is necessary to estimate values of \(A\) and
+\(\phi\).
+%
+Fortunately, we can do it in similar way.6
+%
+Indeed, we have expression for the experimental values
+\begin{equation}
+    p_t = A q_1^t + B q_2^t.
+    \label{weighted_sum}
+\end{equation}
+%
+Just as before, substitution of the data in these equations gives us overdefined system
+that can be solved by the Least Squares Method.
+%
+Things are a little bit tricky now because \(A\) and \(B\) are complex numbers.
+%
+The simplest approach to interpret (\ref{weighted_sum}) as real number is to take
+real part of this expression.
+%
+
 
 \end{document}
 
