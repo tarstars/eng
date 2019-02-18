@@ -8,20 +8,20 @@
 \renewcommand{\baselinestretch}{2.0}
 \begin{document}
 If you ask some contemporary mathematician how to extract
-periodical structure from a data, most probable answer will
-be "use the Fourier transformation". Really, it is very
-powerful method and it found it's applications in the
+periodical structures from data, the most probable answer will
+be "use the Fourier transformation". Really, it is a very
+powerful method and it found its applications in the
 data analysis, image processing, digital signals processing.
 But, nevertheless, it has some limitations.
 
-Fourier analysis only allows to detect sine component if
-the frequency of this component is exact multiplier
-of the carrier frequency that is inverse of discretization
+Fourier analysis only allows to detect a sine component if
+the frequency of this component is an exact multiplier
+of the carrier frequency that is inverse of the discretization
 step. Otherwise one obtains a lot of non-zero components
 in the Fourier-spectrum even if a signal contains, for example,
 only three sine components.
 
-In order to overcome this limitation it is possible to apply
+In order to overcome this limitation it is possible to apply the
 Prony method. It consists of two steps. Before we can proceed
 to the description of the first step, let us discuss some relatively
 simple, but very interesting and important mathematical observation.
@@ -29,36 +29,44 @@ simple, but very interesting and important mathematical observation.
 Gaspar de Prony was a scientist. One of his many areas of interest was
 experiments with expanding gases. Once he decided that results of his
 experiments can be described as a sum of exponential functions. I don't
-know precisely a nature of his experiments, but let us assume that he
-measured dependency of some value on time. In this case one exponent term
-has the form $A\exp(\omega t)$, where $A$ is an amplitude of the component and
-$\omega$ is a frequency. Probably, Gaspar was interested mainly in the real
-values of $\omega$ because they corresponds to the monotonous function.
+know precisely the nature of his experiments, but let us assume that he
+measured the dependency of some value on time. In this case one exponent term
+has the form $A\exp(\omega t)$, where $A$ is the amplitude of the component and
+$\omega$ is the frequency. Probably, Gaspar was interested mainly in the real
+values of $\omega$ because they corresponded to the monotonous function.
 However, it is quite possible for $\omega$ to be a complex number. In this case
-real part tells us if the process is taking strength with time goes by if \(\Re \omega > 0\), or,
+the real part tells us if the process is taking strength as time goes by if \(\Re \omega > 0\), or,
 on the contrary, it is a quenching process if \(\Re \omega < 0\). When \(\omega\)
-has non-zero imaginary part $\Im \omega$ things become more interesting, because
+has a non-zero imaginary part $\Im \omega$ things become more interesting, because
 this part corresponds to oscillations.
 
-Firt interesting mathematical fact is that progression of exponential term values in evenly distributed time moments
-is geometric progression. Indeed, let us consider three evenly distributed time moments 
-$t_1, t_2, t_3$. Due to even distribution there is equation $t_3 - t_2 = t_2 - t_1 = \Delta$.
-Values of exponent term are \(v_1 = A_1\exp(\omega_1 t_1), v_2 = A_1\exp(\omega_1 t_2), v_3 = A_1\exp(\omega_1 t_3)\).
-If ratio of \(v_2\) to \(v_1\) is equal to ratio of \(v_3\) to \(v_2\), values \(v_1, v_2, v_3\) forms geometric progression.
-Inded, \(v_2/v_1 = \exp(\omega_1(t_2 - t_1)) = \exp(\omega_1\Delta)\) and \(v_3/v_2 = \exp(\omega_1(t_3 - t_2)) = \exp(\omega_1\Delta)\).
-Therefore \(v_2/v_1 = \exp(\omega_1\Delta) = v_3/v_2\). It is convenient to introduce
+The first interesting mathematical fact is that a progression of exponential term values in evenly distributed time moments
+is a geometric progression. 
+%
+Indeed, let us consider three evenly distributed time moments 
+$t_1, t_2, t_3$. 
+%
+Due to the even distribution there is an equation $t_3 - t_2 = t_2 - t_1 = \Delta$.
+The values of exponent terms are \(v_1 = A_1\exp(\omega_1 t_1), v_2 = A_1\exp(\omega_1 t_2), v_3 = A_1\exp(\omega_1 t_3)\).
+If the ratio of \(v_2\) to \(v_1\) is equal to the ratio of \(v_3\) to \(v_2\), the values \(v_1, v_2, v_3\) form a geometric progression.
+%
+Indeed, \(v_2/v_1 = \exp(\omega_1(t_2 - t_1)) = \exp(\omega_1\Delta)\) and \(v_3/v_2 = \exp(\omega_1(t_3 - t_2)) = \exp(\omega_1\Delta)\).
+%
+Therefore \(v_2/v_1 = \exp(\omega_1\Delta) = v_3/v_2\).
+%
+It is convenient to introduce a
 new variable \(q\) as follows \(q = \exp (\Delta)\).
 
 Then, it is easy to demonstrate that a geometric progression satisfies a recurrency relation.
 %
-Let such relation has form 
+Let such relation have the form 
 \begin{equation}
  v_{i+2} = a v_{i+1} + b v_{i}
  \label{recurrency_eq}
 \end{equation} 
 %
-We can substitute values using
-formula for general term of geometric progression \(v_i = q^i\) and obtain polynomial equation
+We can substitute values using the
+formula for the general term of a geometric progression \(v_i = q^i\) and obtain the polynomial equation
 \begin{equation}
 q^2 = a q + b.
 \label{square_eq}
@@ -113,7 +121,7 @@ Real part of \(q\) is related to \(\gamma\) and \(\omega\).
 To full reconstruction of signal it is necessary to estimate values of \(A\) and
 \(\phi\).
 %
-Fortunately, we can do it in similar way.6
+Fortunately, we can do it in similar way.
 %
 Indeed, we have expression for the experimental values
 \begin{equation}
