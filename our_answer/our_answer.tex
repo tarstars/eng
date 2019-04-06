@@ -1,0 +1,53 @@
+\documentclass[a4paper,12pt]{extarticle}
+\usepackage[utf8]{inputenc}
+
+\renewcommand{\baselinestretch}{2.0}
+
+\begin{document}
+
+\section{}
+
+We are very grateful to reviewers for all time and attention they spent on our work.
+
+We believe that a good article must contain a new(1), elegant(2) and working(3) idea.
+
+1) Our idea is new, because a discussion of gbdt in all machine learning textbooks is limited by interpolation, as if it covers all applications of this algorithm.
+But there is a very simple modification of the algorithm.
+
+2) Our approach is elegant, because a very simple and native modification of the vanilla gbdt algorithm leads to a drastical change of its functionality.
+Another elegant side of our solution is that it saves the utmost important advantage of the vanilla algorithm.
+When during the split selection phase we iterate over features and features' thresholds,
+it is not necessary to recalculate all intermidiate values from scratch.
+It is possible to perform a cheap incremental update of the intermidiate values.
+
+3) Our idea works.
+We implemented this algorithm.
+Our implementation was tested on the synthetic data.
+The algorithm for the synthetic dataset generation is very simple and is thoroughly described in the paper.
+By construction of this dataset it is obvious from the theoretical point of view that the vanilla algorithm is not able to demonstrate a decent performance on this data set.
+But our simple idea handles this case with ease and this was shown by the numerical experiments.
+We understand that using the synthetic data set is not enough for the full approbation of the algorithm.
+Therefore we performed an experiment with the data from the commercial search engine.
+We are currently negotiating with the owner of data on a obfuscated format in which data set can be published. The dataset will be available as soon as we come to some terms with the company. 
+ 
+We omit some references including M5 if these articles do not contain runtime analysis and implementation details.
+For example, it is unclear if [Quinlan, 1992] used aforementioned incremental update trick.
+Moreover, regression problems are only discussed in that article, while our algorithm can be used for the classification as well as for the regression.
+
+We strongly agree that it is great to have a one shot system instead of system with a lot of options, but we were witnessed cases when people and organizations were ready to spend a lot of time and efforts in order to improve predictive power of their models. It seems like a good idea to provide such an opportunity.
+
+It is true from the theoretical point of view, that general framework can be easily extended. But there is no implementation of such functionality in the popular gbdt implementations such as xgboost, catboost, lightgbm. Moreover, if one tries to run project that seems to be ready, like gbdt\_pl, he can experience a lot of troubles like obsolete build script etc. We want our approach to be implemented in xgboost, catboost and lightgbm projects. If it is impossible we are ready to maintain our own public project.
+
+We want to elaborate a little bit our expression "indirect influence of time on other features". Let us assume that we want to solve credit score problem. One of the features with the indirect influence of time can be, for example, the number of distinct mobile phones/adresses for given person in the previous loan applications.
+
+From the theoretical point of view, it is possible to use RNN in the leaves. But to be useful, final algorithm must be effective. It means that operation of the split update must be as light as possible. It is true for vanilla gradient boosting and still be true for our extension of this algorithm. But, unfortunately, it is unfeasible task to train neuro network on each split.  
+
+Note about the question on kernel-like process. What we really keep in mind is to extend the class of models by considering linear combinations of fixed nonlinear functions of the input variables (see Bishop, Pattern Recognition and Machine Learning, section 3.1, Linear Basis Function Model).
+
+From our point of view, the combination of ARIMA and xgboost is contrived. But our approach is simple and essential.
+
+Although we have the code of our library including the synthetic data set generation in public access on github, it is prohibited by the rules of the conference to send an additional code during author feedback (Question 10 in Frequently Asked Question on Code Submission in Style \& Author Instructions).  :(
+
+We hope that after all these explanations you can see elegance and simplicity of our work and that its level is, may be, a little but higher than that unknown to us threshold of acceptance.
+
+\end{document}

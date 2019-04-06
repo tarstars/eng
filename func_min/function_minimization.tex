@@ -33,12 +33,21 @@ the Pytorch library.
 
 \lstset{language=Python}
 
-Let us discuss rakes that leis on the road of a pure unaware
+Let us discuss the pitfalls that an unaware data scientist can come across using the
+Pytorch and Tensorflow libraries.
+%
+There is a convenient idiom to describe such type of pitfalls.
+%
+One can call them '''rakes``` because if you face 
+one of these problems, it can be painful just as when you step on a rake 
+and it hits you on your forehead.
+%
+Let us discuss rakes that lei on the road of a pure unaware
 data scientist.
 %
-I spent several days trying to find a way to avoid it.
+I spent several days trying to find a way to avoid them.
 %
-Let us repeat steps from the previous chapter.
+Let us repeat the steps from the previous chapter.
 %
 Throw randomly five points inside the unit cube:
 \begin{lstlisting}[frame=single]
@@ -57,14 +66,14 @@ torch_coords_tensor = torch.from_numpy(torch_coords_np)
 Then create the wrapper that allows our algorithm to change
 the tensor.
 %
-This wrapper has effect very similar to passing parameters
+This wrapper has an effect which is very similar to passing parameters
 using pointer or reference semantic in C++ programming language.
 %
 \begin{lstlisting}[frame=single]
  pt_X = torch.nn.Parameter(torch_coords_tensor)
 \end{lstlisting}
 %
-And, finally, let us put our leg on the rakes:
+And, finally, let us put our foot on the rake:
 %
 \begin{lstlisting}[frame=single]
 def create_loss_rake(pt_X):
@@ -84,56 +93,57 @@ def create_loss_rake(pt_X):
     return pt_L
 \end{lstlisting}
 %
-Really, we already have the trouble.
+Actually, we already have some trouble.
 %
-Handle of the rakes speeds inevitably toward our forehead.
+The handle of the rake speeds inevitably toward our forehead.
 %
-But there was no impact yet.
+But there is no impact yet.
 %
-In order to reveal our problems at full extent, we need to =
+In order to reveal our problems at full extent, we need to
 perform two more steps.
 %
-calculate the loss functions
+Calculate the loss function
 \begin{lstlisting}[frame=single]
 L = create_loss_rake(pt_X)
 \end{lstlisting}
 %
-And then calculate derivatives of this function by parameters
+And then calculate the derivatives of this function by the parameters
 %
 \begin{lstlisting}[frame=single]
 L.backward()
 \end{lstlisting}
 %
-Lets check the values of the gradient
+Let's check the values of the gradient
 \begin{figure}[h]
 \centering\includegraphics[width=.99\hsize]{pics/rakes_grad.png}
 %\caption{Extra Boost: an ensemble of gradient boosted trees with extrapolation.}%\ourtitle
 \end{figure}
 
-It is the full \textbf{nan}otechnological success.
+It is a full \textbf{nan}otechnological success.
 %
 But what is the reason of our problems?
 %
-It seems that the only place where we could have problems such as division by zero and, consequently, \(nan\) values is calculation of reciprocial
+It seems that the only place where we could have problems such as division by zero and, consequently,
+\(nan\) values is the calculation of reciprocial
 values during electrostatic potential evaluation:
 \begin{lstlisting}[frame=single]
 1 / pt_pq_dist
 \end{lstlisting}
 %
 But how is it possible, if we added the unit matrix, replacing all
-''0`` in \(pt_pq_sq_dist\) to ''1``?
+''0`` in \(pt\_pq\_sq\_dist\) to ''1``?
 %
 Turns out that the values of the function is not the only
-thing we ought to take care about when we are working
+thing we ought to care about when we are working  % to take care of 
 with the Pytorch and Tensorflow libraries.
 %
 These libraries use the backward propagation method in order
-to calculate gradient of a loss function.
+to calculate the gradient of a loss function.
 %
-A gradients' calculation means calculation of a derivative
+The calculation of a gradient means calculation of a derivative  % to calculate a gradient means to calculate a derivative
 for any operation involved in our expression, so it is
 necessary to track not only the function scope, but
-scope of all derivatives inside our function.
+that of all derivatives inside our function.
 %
 Looking from this perspective, it is easy to find
 the flow in our program.
@@ -141,20 +151,20 @@ the flow in our program.
 Indeed, one of the operations in our formula is
 the square root.
 %
-Derivative of the square root function is
+The derivative of the square root function is
 \begin{equation}
  \left ( \sqrt x \right )' = \frac 1 {2\cdot \sqrt x}
 \end{equation}
 %
 Now it is quite obvious that zeros on the matrix diagonal
-cause division by zero error on the backward propagation step.
+cause a division by zero error on the backward propagation step.
 %
-Solution of this problem is quite straightforward as well.
+The solution of this problem is quite straightforward as well.
 %
-All we need is to swap increase of diagonal elements by ones
-with the previous line.
+All we need is to place the increase of diagonal elements by one
+above the previous line.
 %
-Lets check what is going on now:
+Let's check what is going on now:
 \begin{lstlisting}[frame=single]
  > pt_X.gradient
 tensor([[ 29.5873,  11.8047,  18.2031],
@@ -168,7 +178,7 @@ Congratulations!
 %
 This is the gradient matrix. 
 %
-It shows direction of maximal grows of our loss function.
+It shows the direction of maximal growth of our loss function.
 %
 In the next chapter we will go in the opposite direction 
 in order to minimize the value of the loss function.
